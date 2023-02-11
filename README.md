@@ -1,2 +1,2 @@
-# -user-shinhan--online-shop-website-template
+# Shinhan Project - Trang user
  
