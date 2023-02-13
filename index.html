@@ -125,9 +125,10 @@
     //   }
    
    </script>
+   <script src="js/checkLogin.js"></script>
   </head>
 
-  <body>
+  <body onload="checkLoginFunc()">
     <!-- Topbar Start -->
     <div class="container-fluid">
       <div
@@ -158,10 +159,14 @@
           </form>
         </div>
         <div class="col-lg-4 col-6 text-right">
-          <button type="button" class="btn btn-warning btn-sm rounded">
+          <button type="button" id="loginBtn" onclick="Login()" class="btn btn-warning btn-sm rounded" data-toggle="collapse" data-target="#collapseExample">
             Đăng nhập
           </button>
+          <div class="collapse" id="collapseExample">
+            <button type="button" class="btn btn-sm rounded" onclick="LogOut()">Log Out</button>
+          </div>
         </div>
+        
       </div>
     </div>
     <!-- Topbar End -->
