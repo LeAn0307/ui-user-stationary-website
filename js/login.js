@@ -1,4 +1,4 @@
-const domain = window.location.hostname
+
 const loginButton = document.getElementById('loginbtn');
 const inputEmail = document.getElementById('emailLogin');
 const inputPass = document.getElementById('passwordLogin');
@@ -15,9 +15,8 @@ loginButton.addEventListener('click', function() {
                 
                 setLoginStatus(true);
                 storeUser(result.id, result.userName, result.phone, result.address, result.idAccount);
-                // var users = localStorage.getItem('userId');
-                // alert(users);
-                window.location.href = "/index.html";
+                var users = localStorage.getItem('userId');
+                alert(users);
                 
             } else {
                 localStorage.clear();
