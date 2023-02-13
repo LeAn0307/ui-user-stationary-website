@@ -16,7 +16,7 @@ loginButton.addEventListener('click', function() {
                 setLoginStatus(true);
                 storeUser(result.id, result.userName, result.phone, result.address, result.idAccount);
                 var users = localStorage.getItem('userId');
-                alert(users);
+                //alert(users);
                 
             } else {
                 localStorage.clear();

@@ -26,7 +26,7 @@
             },
             error: function (xhr, status, error){
                 console.error(error);
-                alert(error);
+                //alert(error);
             }
         })
 
