@@ -25,7 +25,7 @@ There are 3 main contents:
 
 
 ## 2. Management page - for shop owners :hatching_chick:
-<UI + kèm mô tả Hậu>
+<UI + kèm mô tả Tiệp>
 
 ## 3. Sales page - for users  :fish:
 <UI + kèm mô tả Hậu>
