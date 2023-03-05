@@ -24,9 +24,10 @@
 
     <!-- Customized Bootstrap Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
+    <script src="js/checkLogin.js"></script>
 </head>
 
-<body>
+<body onload="checkLoginFunc()">
     <!-- Topbar Start -->
     <div class="container-fluid">
         <div class="row align-items-center bg-light py-3 px-xl-5 d-none d-lg-flex">
@@ -51,9 +52,12 @@
             <div class="col-lg-4 col-6 text-right">
                 <button type="button" class="btn btn-warning btn-sm rounded">Đăng nhập</button>
             </div>
+            <div class="collapse" id="collapseExample">
+                <button type="button" class="btn btn-sm rounded" onclick="LogOut()">Log Out</button>
+            </div>
         </div>
     </div>
-    <!-- Topbar End -->
+    <!-- Topbar End --> 
 
 
     <!-- Navbar Start -->
@@ -72,7 +76,7 @@
                         <div class="navbar-nav mr-auto py-0">
                             <a href="index.html" class="nav-item nav-link ">Trang chủ</a>
                             <a href="shop.html" class="nav-item nav-link">Danh mục</a>
-                            <!-- <a href="detail.html" class="nav-item nav-link">Chi tiết sản phẩm</a> -->
+                            <a href="detail.html" class="nav-item nav-link">Chi tiết sản phẩm</a>
                             <a href="cart.html" class="nav-item nav-link">Giỏ hàng</a>
                             <a href="checkout.html" class="nav-item nav-link active">Thanh toán</a>                  
                             <a href="contact.html" class="nav-item nav-link">Liên hệ</a>
