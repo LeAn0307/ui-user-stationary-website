@@ -1,0 +1,21 @@
+.rating-stars {
+    list-style:left;
+    margin: 0;
+    padding: 0;
+}
+
+.star {
+    display: inline-block;
+    font-size: 30px;
+    color: gray;
+    cursor: pointer;
+}
+
+.star:hover,
+.star:hover ~ .star {
+    color: gold;
+}
+
+.star.active {
+    color: gold;
+}
