@@ -7,11 +7,11 @@ loginButton.addEventListener('click', function() {
     var pass = inputPass.value;
     $.ajax({
         type: "POST",
-        url: "http://localhost:8080/users/login",
+        url: "http://localhost:8080/accounts/login",
         contentType: "application/json",
         data: JSON.stringify({email: emailUser, accountPassword: pass}),
         success: function (result, status, xhr) {
-            if(status = 'success') {
+            // if(status = 'success') {
                 
                 setLoginStatus(true);
                 storeUser(result.id, result.userName, result.phone, result.address, result.idAccount);
@@ -19,9 +19,10 @@ loginButton.addEventListener('click', function() {
                 //alert(users);
                 window.location.href = "/index.html";
                 
-            } else {
-                localStorage.clear();
-            }
+            // } else {
+            //     localStorage.clear();
+            // }
+            console.log(result);
         },
         error: function (xhr, status, error) {
             alert("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
