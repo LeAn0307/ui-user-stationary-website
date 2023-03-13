@@ -7,7 +7,7 @@
 .star {
     display: inline-block;
     font-size: 30px;
-    color: gray;
+    color: rgb(255, 161, 66);
     cursor: pointer;
 }
 
@@ -18,4 +18,25 @@
 
 .star.active {
     color: gold;
+}
+.fa-star{
+    color:rgb(255, 161, 66);
+}
+.star1 {
+    display: inline-block;
+    font-size: 30px;
+    color: gray;
+    cursor: pointer;
+}
+
+.star1:hover,
+.star1:hover ~ .star {
+    color: gold;
+}
+
+.star1.active {
+    color: gold;
+}
+.fa-star1{
+    color:rgb(255, 161, 66);
 }

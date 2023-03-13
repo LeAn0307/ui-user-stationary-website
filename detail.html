@@ -21,6 +21,7 @@
     <!-- Libraries Stylesheet -->
     <link href="lib/animate/animate.min.css" rel="stylesheet">
     <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
     <!-- Customized Bootstrap Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
@@ -162,11 +163,11 @@
                     <div class="navbar-nav ml-auto py-0 d-none d-lg-block">
                         <a href="" class="btn px-0">
                             <i class="fas fa-heart text-primary"></i>
-                            <span class="badge text-secondary border border-secondary rounded-circle" style="padding-bottom: 2px;">0</span>
+                            <span  class="badge text-secondary border border-secondary rounded-circle" style="padding-bottom: 2px;">0</span>
                         </a>
                         <a href="" class="btn px-0 ml-3">
                             <i class="fas fa-shopping-cart text-primary"></i>
-                            <span class="badge text-secondary border border-secondary rounded-circle" style="padding-bottom: 2px;">0</span>
+                            <span id="countproduct" class="badge text-secondary border border-secondary rounded-circle" style="padding-bottom: 2px;">0</span>
                         </a>
                     </div>
                 </div>
@@ -258,17 +259,16 @@
                                 <div id="reviews"></div>
                             </div>
                             <div class="col-md-6">
-                                <h4 class="mb-4">Leave a review</h4>
-                                <small>Your email address will not be published. Required fields are marked *</small>
+                                <h4 class="mb-4">Để lại đánh giá</h4>
                                 <div class="d-flex my-3">
-                                    <p class="mb-0 mr-2">Your Rating * :</p>
                                     <div class="product-rating">
+                                        <p class="mb-0 mr-2 d-flex">Đánh giá của bạn:</p>
                                         <ul class="rating-stars">
-                                            <li class="star">&#9733;</li>
-                                            <li class="star">&#9733;</li>
-                                            <li class="star">&#9733;</li>
-                                            <li class="star">&#9733;</li>
-                                            <li class="star">&#9733;</li>
+                                            <li class="star1">&#9733;</li>
+                                            <li class="star1">&#9733;</li>
+                                            <li class="star1">&#9733;</li>
+                                            <li class="star1">&#9733;</li>
+                                            <li class="star1">&#9733;</li>
                                         </ul>
                                         <p class="rating-value"></p>
                                     </div>
@@ -522,10 +522,14 @@
 <!-- Template Javascript -->
 <script src="js/main.js"></script>
 <script>
-    var url = window.location.pathname;
-    var id = url.substring(url.lastIndexOf('/') + 1);
+    var url_string = window.location.href; 
+    var url = new URL(url_string);
+    var id = url.searchParams.get("id");
     let baseURL ="http://127.0.0.1:8080";
-    let productid=1;
+    let productid=id;
+    var cardId=1;
+    var userId=1;
+    console.log(productid);
     // fetch(baseURL+'/products/14')
     //     .then(response => response.json())
     //     .then(data => {
@@ -551,10 +555,11 @@
         success: function(data) {
 
             document.getElementById('productName').innerHTML =(data["name"]);
-            document.getElementById('description').innerHTML = (data["description"].replace(/\n/g, "\n"));
+            document.getElementById('description').innerHTML = (data["description"].replace(/(?:\r\n|\r|\n)/g, '<br>'));
             document.getElementById('price').innerHTML = (formatter .format(data["price"]));
             document.getElementById('color').innerHTML =  (data["color"]);
             document.getElementById('imageproduct').setAttribute("src", baseURL+"/images/product/"+data["image"]);
+            getCountProductOfCart(cardId)
         },
         error: function(data) {
 
@@ -562,6 +567,26 @@
             console.log(data);
         },
     });
+
+    function getCountProductOfCart(cardId)
+    {
+         $.ajax({
+        url: baseURL+'/cartproduct/counterproductive/'+cardId,
+        type: 'get',
+        dataType: "json",
+        contentType : "application/json",
+        success: function(data) {
+
+            document.getElementById('countproduct').innerText =(data);
+        },
+        error: function(data) {
+
+            // Some error in ajax call
+            console.log(data);
+        },
+    });
+    
+    }
     function reviewstar(rating){
         let stars = "";
 
@@ -576,6 +601,9 @@
         }
         return stars;
     }
+    loadReview();
+    function loadReview()
+    {
     $.ajax({
         url: baseURL+'/rating/product/'+productid,
         type: 'get',
@@ -612,15 +640,15 @@
             console.log(data);
         },
     });
+}
     const form = document.querySelector('#review');
 
     form.addEventListener('submit', (event) => {
         event.preventDefault();
 
         const message = document.querySelector('#message').value;
-        const userId =1;
-        const productId = 1;
-        const ratingScore=5;
+        const productId = productid;
+        const ratingScore=rating;
 
         // Perform validation on form fields
         if (!message ) {
@@ -632,8 +660,8 @@
         const data = {
             comment: message,
             rateScore: ratingScore,
-            userId: "1",
-            productId:1
+            userId: userId,
+            productId:productid
         };
 
         // Send form data to server using AJAX
@@ -642,22 +670,26 @@
         xhr.setRequestHeader('Content-Type', 'application/json');
         xhr.onload = function() {
             if (xhr.status === 200) {
-                alert('Your review has been submitted successfully!');
+               // alert('Your review has been submitted successfully!');
+                swal("Thông báo! ", "Đánh giá thành công", "success");
                 form.reset();
+                loadReview();
+                
             } else {
-                alert('Error submitting form. Please try again later.');
+               // alert('Error submitting form. Please try again later.');
+                swal("Thông báo! ", "Đánh giá không thành công", "error");
             }
         };
         xhr.send(JSON.stringify(data));
     });
-    const stars = document.querySelectorAll('.star');
+    const stars = document.querySelectorAll('.star1');
     const ratingValue = document.querySelector('.rating-value');
     let rating = 0;
 
     stars.forEach((star, index) => {
         star.addEventListener('click', () => {
             rating = index + 1;
-            ratingValue.innerText = `You've rated this product ${rating} out of ${stars.length} stars.`;
+            //ratingValue.innerText = `You've rated this product ${rating} out of ${stars.length} stars.`;
             updateActiveStars();
         });
     });
@@ -697,8 +729,8 @@
         const number=document.querySelector('#quantity').value;
         const data = {
             "quantity":number,
-            "productId": 1,
-            "cartId": 1
+            "productId": productid,
+            "cartId": cardId
         };
 
         const xhr = new XMLHttpRequest();
@@ -706,9 +738,11 @@
         xhr.setRequestHeader('Content-Type', 'application/json');
         xhr.onload = function() {
             if (xhr.status === 200) {
-                alert('Your review has been submitted successfully!');
+                alert('Thêm sản phẩm thành công');
+                getCountProductOfCart(cardId);
+                
             } else {
-                alert('Error submitting form. Please try again later.');
+                alert('Lỗi ');
             }
         };
         xhr.send(JSON.stringify(data));
