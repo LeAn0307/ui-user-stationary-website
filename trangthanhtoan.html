@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Momo Payment</title>
+</head>
+<body>
+<h1>Thanh toán với Momo</h1>
+<form method="POST" action="http://localhost:3000/payment">
+  <label>Số tiền:</label>
+  <input type="text" name="amount" required><br><br>
+  <label>Mã đơn hàng:</label>
+  <input type="text" name="orderId" required><br><br>
+  <label>Khóa bí mật:</label>
+  <input type="text" name="serectkey" required><br><br>
+  <button type="submit">Thanh toán</button>
+</form>
+</body>
+</html>

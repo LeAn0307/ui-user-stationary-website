@@ -25,6 +25,11 @@
     <!-- Customized Bootstrap Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
     <script src="js/checkLogin.js"></script>
+    <style>
+        .readonly {
+            pointer-events: none;
+        }
+    </style>
 </head>
 
 <body onload="checkLoginFunc()">
@@ -133,21 +138,59 @@
                     </tbody>
                 </table>
             </div>
+            <div class="col-lg-8" id="form-buy" >
+                <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Billing Address</span></h5>
+                <div class="bg-light p-30 mb-5">
+                    <div class="row">
+                        <div class="col-md-6 form-group">
+                            <label>Tên khách hàng</label>
+                            <input class="form-control readonly" id="nameUser" type="text"  placeholder="John" >
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label>Số điện thoại</label>
+                            <input class="form-control readonly" id="phoneUser" type="text" placeholder="+123 456 789" >
+                        </div>
+
+                        <div class="col-md-12 form-group">
+                            <label>Địa chỉ</label>
+                            <input class="form-control" id="addressUser" type="text" placeholder="31 Trần Duy Hưng, quận Cầu Giấy, Hà Nội">
+                        </div>
+
+                        <div class="col-md-6 form-group">
+                            <label>E-mail</label>
+                            <input class="form-control readonly" id="emailUser" type="text" placeholder="darklord0305@gmail.com">
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label>Phương thức thanh toán</label>
+                            <select class="custom-select">
+                                <option selected>Thanh toán khi nhận được hàng</option>
+                                <option disabled>Chuyển khoản ngân hàng (Hiện chưa hộ trợ)</option>
+                                <option disabled>Thanh toán momo (Hiện chưa hộ trợ)</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3 form-group">
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <button class="btn btn-block btn-primary font-weight-bold py-3" id="place-order">Place Order</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="col-lg-4">
                 <form class="mb-30" action="">
                     <div class="input-group">
                         <input type="text" class="codeCoupon form-control border-0 p-4" placeholder="Coupon Code">
                         <div class="input-group-append">
-                            <button class="btn btn-primary apply-code">Apply Coupon</button>
+                            <button class="btn btn-primary " id="apply-code">Apply Coupon</button>
                         </div>
                     </div>
                 </form>
                 <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Cart Summary</span></h5>
                 <div class="bg-light p-30 mb-5">
-                    <div class="border-bottom pb-2">
+                    <div class="border-bottom pb-2" id="cart-summary">
                         <div class="d-flex justify-content-between mb-3">
                             <h6>Subtotal</h6>
-                            <h6 id="subtotal">300</h6>
+                            <h6 id="subtotal"></h6>
                         </div>
                         <div class="d-flex justify-content-between">
                             <h6 class="font-weight-medium">Shipping</h6>
@@ -157,12 +200,13 @@
                     <div class="pt-2">
                         <div class="d-flex justify-content-between mt-2">
                             <h5>Total</h5>
-                            <h5 id="total-bill">310</h5>
+                            <h5 id="total-bill">0</h5>
                         </div>
-                        <button class="btn btn-block btn-primary font-weight-bold my-3 py-3">Proceed To Checkout</button>
+                        <button class="btn btn-block btn-primary font-weight-bold my-3 py-3" id="btnChangePage">Proceed To Checkout</button>
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
     <!-- Cart End -->
@@ -257,6 +301,7 @@
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
     <script src="js/cart.js"></script>
+    <script src="js/jwt-decode.js"></script>
 </body>
 
 </html>
