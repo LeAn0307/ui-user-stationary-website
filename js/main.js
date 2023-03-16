@@ -17,6 +17,54 @@
         toggleNavbarMethod();
         $(window).resize(toggleNavbarMethod);
 
+        $.ajax({
+            type:"GET",
+            url:"http://localhost:8080/cart/1",
+            success:function (data){
+                $("#subtotal").text(data.total);
+                $("#total-bill").text(data.total*discount + 10);
+            },
+            error: function (xhr, status, error){
+                console.error(error);
+                //alert(error);
+            }
+        })
+
+
+        $.ajax({
+            type:"GET",
+            url:"http://localhost:8080/products/idcart/1",
+            success:function (data){
+                $.each(data, function (index,value){
+                    $("#row-table").append("<tr>\n" +
+                        "                            <td class=\"align-middle\"><img src=\"img/product-1.jpg\" alt=\"\" style=\"width: 50px;\"> "+ value.name+"</td>\n" +
+                        "                            <td class=\"align-middle price\">"+value.price+"</td>\n" +
+                        "                            <td class=\"align-middle\">\n" +
+                        "                                <div class=\"input-group mx-auto\" style=\"width: 100px;\">\n" +
+                        "                                    <div class=\"input-group-btn\">\n" +
+                        "                                        <button class=\"btn quantity btn-sm btn-primary btn-minus\" >\n" +
+                        "                                        <i class=\"fa fa-minus\"></i>\n" +
+                        "                                        </button>\n" +
+                        "                                    </div>\n" +
+                        "                                    <input type=\"text\" class=\"amount form-control form-control-sm bg-secondary border-0 text-center\" value=\""+value.quantity+"\">\n" +
+                        "                                    <div class=\"input-group-btn\">\n" +
+                        "                                        <button class=\"btn quantity btn-sm btn-primary btn-plus\">\n" +
+                        "                                            <i class=\"fa fa-plus\"></i>\n" +
+                        "                                        </button>\n" +
+                        "                                    </div>\n" +
+                        "                                </div>\n" +
+                        "                            </td>\n" +
+                        "                            <td class=\"align-middle total-price\">"+value.price*value.quantity+"</td>\n" +
+                        "                            <td class=\"align-middle\"><button class=\"btn btn-sm btn-danger hide_on_click\"><i class=\"fa fa-times\"></i></button></td>\n" +
+                        "                        </tr>");
+
+                });
+            },
+            error: function (xhr, status, error){
+                console.error(error);
+                alert(error);
+            }
+        })
     });
 
     

@@ -1,3 +1,4 @@
+
 (function ($) {
     'use strict';
     const inputEmail = document.getElementById('emailLogin');
