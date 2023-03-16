@@ -1,15 +1,29 @@
 (function ($) {
-    "use strict";
-    var discount=1;
+    //"use strict";
+    var discount=0;
+    var myJsonCopy;
+    var couponPrice=0;
+    var disMin=0;
+    var maxMin=0;
+    $("#form-buy").hide();
     // Dropdown on mouse hover
     $(document).ready(function () {
-
+        if (document.cookie.indexOf("token") != -1) {
+            let jwt = document.cookie.split(";").find(row => row.startsWith('token='))?.split('=')[1];
+            const decoded = jwt_decode(jwt);
+            console.log(decoded);
+            console.log(decoded.userId);
+            } else {
+                window.location.href = "login.html";
+            }
+       
+        
         $.ajax({
             type:"GET",
             url:"http://localhost:8080/cart/1",
             success:function (data){
                 $("#subtotal").text(data.total);
-                $("#total-bill").text(data.total*discount + 10);
+                $("#total-bill").text((data.total!=0)?(data.total + 10):0);
             },
             error: function (xhr, status, error){
                 console.error(error);
@@ -22,9 +36,11 @@
             type:"GET",
             url:"http://localhost:8080/products/idcart/"+localStorage.getItem('userId'),
             success:function (data){
+                console.log(data);
+                myJsonCopy = JSON.parse(JSON.stringify(data));
                 $.each(data, function (index,value){
                     $("#row-table").append("<tr>\n" +
-                        "                            <td class=\"align-middle\"><img src=\"img/product/"+value.image+"\" alt=\"\" style=\"width: 50px;\"> "+ value.name+"</td>\n" +
+                        "                            <td class=\"align-middle name\"><img src=\"img/"+value.image+"\" alt=\"\" style=\"width: 50px;\">"+value.name+"</td>\n" +
                         "                            <td class=\"align-middle price\">"+value.price+"</td>\n" +
                         "                            <td class=\"align-middle\">\n" +
                         "                                <div class=\"input-group mx-auto\" style=\"width: 100px;\">\n" +
@@ -52,6 +68,22 @@
                 alert(error);
             }
         })
+        $.ajax({
+            type:"GET",
+            url:"http://localhost:8080/users/"+localStorage.getItem('userId'),
+            success:function (data){
+                console.log(data);
+                $("#nameUser").val(data.userName);
+                $("#phoneUser").val(data.phone);
+                $("#addressUser").val(data.address);
+                $("#emailUser").val(data.email);
+            },
+            error: function (xhr, status, error){
+                console.error(error);
+                alert(error);
+            }
+        })
+        console.log(myJsonCopy);
     });
 
 
@@ -62,6 +94,7 @@
         var button = $(this);
         var oldValue = button.parent().parent().find('input').val();
         var price = parseFloat(button.parent().parent().parent().parent().find('.price').text());
+        var nameProduct = button.parent().parent().parent().parent().find('.name').text();
         var totalPrice = parseFloat(button.parent().parent().parent().parent().find('.total-price').text());
         var subTotal = parseFloat($("#subtotal").text());
         if (button.hasClass('btn-plus')) {
@@ -77,18 +110,50 @@
                 newVal = 0;
             }
         }
+        if (couponPrice!=0){
+            discount=couponPrice*subTotal;
+            if(subTotal>disMin){
+                discount= (discount<maxMin)?discount:maxMin;
+                totalPrice=subTotal-discount;
+            }
+            var dis = document.getElementById("dis-price");
+            dis.innerText=discount;
+
+        }
         button.parent().parent().parent().parent().find('.total-price').text(totalPrice);
         $("#subtotal").text(subTotal);
         if (subTotal == 0) {
             $("#total-bill").text(0);
         } else {
-            $("#total-bill").text(subTotal + 10)
+            $("#total-bill").text(totalPrice+10);
         }
         button.parent().parent().find('input').val(newVal);
-    });
+        // put to update quantity
+            $.each(myJsonCopy, function (index,value) {
+                //console.log(value.name === nameProduct);
+                if(value.name === nameProduct){
+                    var settings = {
+                        "url": "http://localhost:8080/cartproduct/"+value.id,
+                        "method": "PUT",
+                        "timeout": 0,
+                        "headers": {
+                            "Content-Type": "application/json"
+                        },
+                        "data": JSON.stringify({
+                            "quantity": newVal
+                        }),
+                    };
+
+                    $.ajax(settings).done(function (response) {
+                        console.log(response);
+                    });
+                }
+            })
+        });
     $(document).on("click", '.hide_on_click' , function() {
         var button = $(this);
         var sum = parseFloat(button.parent().parent().find('.total-price').text());
+        var nameProduct = button.parent().parent().find('.name').text();
         var subTotal = parseFloat($("#subtotal").text());
         $("#subtotal").text(subTotal-sum);
         if (subTotal-sum == 0) {
@@ -97,22 +162,107 @@
             $("#total-bill").text(subTotal - sum)
         }
         button.parent().parent().hide();
+        $.each(myJsonCopy, function (index,value) {
+            //console.log(value.name === nameProduct);
+            if(value.name === nameProduct){
+                var settings = {
+                    "url": "http://localhost:8080/cartproduct/" +value.id,
+                    "method": "DELETE",
+                    "timeout": 0,
+                };
 
+                $.ajax(settings).done(function (response) {
+                    console.log(response);
+                });
+            }
+        })
     });
-    $(document).on("click", '.apply-code' , function() {
-        var url1="http://localhost:8080/coupon/code/"+$(".codeCoupon").val();
+    $(document).on("click", '#apply-code' , function() {
+        event.preventDefault();
+        var url1 = "http://localhost:8080/coupon/code/"+$(".codeCoupon").val();
         $.ajax({
             type:"GET",
-            url:url1,
+            url: url1,
+        
             success:function (data){
-                if (data!=null){
+                 console.log(data);
+                if (data!=null && data !=""){
                     //alert(data.discount);
-                    discount=data.discount;
+                    disMin = data.minPrice;
+                    maxMin = data.maxPrice;
+                    couponPrice=data.discount;
                     var subTotal = parseFloat($("#subtotal").text());
-                    $("#total-bill").text(subTotal*(1-discount) + 10);
+                    discount=data.discount*subTotal;
+                    if (subTotal>=disMin) {
+                        var text = document.getElementById("total-bill");
+                        discount= (discount<maxMin)?discount:maxMin;
+                        text.innerText = subTotal-discount+10;
+                        $("#cart-summary").append("<div class=\"d-flex justify-content-between\">\n" +
+                            "                            <h6 class=\"font-weight-medium\">Discount</h6>\n" +
+                            "                            <h6 class=\"font-weight-medium\" id=\"dis-price\">"+ discount +"</h6>\n" +
+                            "                        </div>");
+                        $('#apply-code').prop('disabled', true);
+                        $('.codeCoupon').prop('disabled', true);
+                    } else alert('Coupon không đủ điều kiện áp dụng');
                 }else alert('Coupon không tồn tại');
             },
             error: function (xhr, status, error){
+
+                console.error(error);
+                alert('Không tìm thấy');
+            }
+        })
+    });
+    $(document).ready(function() {
+        $('#btnChangePage').click(function() {
+            //window.location.href = "checkout.html/?totalPrice="+;
+            var subTotal = parseFloat($("#subtotal").text());
+            if(subTotal!=0){
+                $("#form-buy").slideToggle(800);
+            }
+        });
+        $('#place-order').click(function (){
+            var settings = {
+                "url": "http://localhost:8080/api/v1/bill",
+                "method": "POST",
+                "timeout": 0,
+                "headers": {
+                    "Content-Type": "application/json"
+                },
+                "data": JSON.stringify({
+                    "total": $("#total-bill").text(),
+                    "discount": discount,
+                    "note": "đóng gói cẩn thận",
+                    "payment": "thanh toán khi nhận hàng",
+                    "codeMomo": "none",
+                    "idBillStatus": 1,
+                    "customerId": localStorage.getItem('userId'),
+                    "address": $("#addressUser").val()
+                }),
+            };
+
+            $.ajax(settings).done(function (response) {
+                alert('dat hang thanh cong');
+            }).fail(function (jqXHR, textStatus, errorThrown) {
+                alert("Đã có lỗi xảy ra");
+                //console.log("AJAX request failed: " + textStatus + ", " + errorThrown);
+            });
+        });
+
+    });
+    $(document).on("click", '#apply-code' , function() {
+        event.preventDefault();
+        var url1 = "http://localhost:8080/coupon/code/"+$(".codeCoupon").val();
+        $.ajax({
+            type:"GET",
+            url: url1,
+
+            success:function (data){
+                console.log(data);
+
+            },
+            error: function (xhr, status, error){
+
                 console.error(error);
                 alert('Không tìm thấy');
             }

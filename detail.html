@@ -26,55 +26,18 @@
     <!-- Customized Bootstrap Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
     <link href="css/detail.css" rel="stylesheet" >
-    <link href="bootstrap-rating.css" rel="stylesheet">
+
+    <script src="js/checkLogin.js"></script>
 </head>
 
-<body>
-<!-- Topbar Start -->
-<div class="container-fluid">
-    <div class="row bg-secondary py-1 px-xl-5">
-        <div class="col-lg-6 d-none d-lg-block">
-            <div class="d-inline-flex align-items-center h-100">
-                <a class="text-body mr-3" href="">About</a>
-                <a class="text-body mr-3" href="">Contact</a>
-                <a class="text-body mr-3" href="">Help</a>
-                <a class="text-body mr-3" href="">FAQs</a>
-            </div>
-        </div>
-        <div class="col-lg-6 text-center text-lg-right">
-            <div class="d-inline-flex align-items-center">
-                <div class="btn-group">
-                    <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">My Account</button>
-                    <div class="dropdown-menu dropdown-menu-right">
-                        <button class="dropdown-item" type="button">Sign in</button>
-                        <button class="dropdown-item" type="button">Sign up</button>
-                    </div>
-                </div>
-                <div class="btn-group mx-2">
-                    <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">USD</button>
-                    <div class="dropdown-menu dropdown-menu-right">
-                        <button class="dropdown-item" type="button">EUR</button>
-                        <button class="dropdown-item" type="button">GBP</button>
-                        <button class="dropdown-item" type="button">CAD</button>
-                    </div>
-                </div>
-                <div class="btn-group">
-                    <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">EN</button>
-                    <div class="dropdown-menu dropdown-menu-right">
-                        <button class="dropdown-item" type="button">FR</button>
-                        <button class="dropdown-item" type="button">AR</button>
-                        <button class="dropdown-item" type="button">RU</button>
-                    </div>
-                </div>
-            </div>
-            <div class="d-inline-flex align-items-center d-block d-lg-none">
-                <a href="" class="btn px-0 ml-2">
-                    <i class="fas fa-heart text-dark"></i>
-                    <span class="badge text-dark border border-dark rounded-circle" style="padding-bottom: 2px;">0</span>
-                </a>
-                <a href="" class="btn px-0 ml-2">
-                    <i class="fas fa-shopping-cart text-dark"></i>
-                    <span class="badge text-dark border border-dark rounded-circle" style="padding-bottom: 2px;">0</span>
+<body onload="checkLoginFunc()">
+    <!-- Topbar Start -->
+    <div class="container-fluid">
+        <div class="row align-items-center bg-light py-3 px-xl-5 d-none d-lg-flex">
+            <div class="col-lg-4 rounded">
+                <a href="" class="text-decoration-none">
+                    <span class="h1 text-uppercase text-primary bg-dark px-2">M.U</span>
+                    <span class="h1 text-uppercase text-dark bg-primary px-2 ml-n1">Shop</span>
                 </a>
             </div>
         </div>
@@ -95,12 +58,15 @@
                                 <i class="fa fa-search"></i>
                             </span>
                     </div>
-                </div>
-            </form>
-        </div>
-        <div class="col-lg-4 col-6 text-right">
-            <p class="m-0">Customer Service</p>
-            <h5 class="m-0">+012 345 6789</h5>
+
+                </form>
+            </div>
+            <div class="col-lg-4 col-6 text-right">
+                <button type="button" class="btn btn-warning btn-sm rounded">Đăng nhập</button>
+            </div>
+            <div class="collapse" id="collapseExample">
+                <button type="button" class="btn btn-sm rounded" onclick="LogOut()">Log Out</button>
+            </div>
         </div>
     </div>
 </div>
@@ -198,7 +164,9 @@
 <!-- Breadcrumb End -->
 
 
+
 <!-- Shop Detail Start -->
+
 <div class="container-fluid pb-5">
     <div class="row px-xl-5">
         <div class="col-lg-5 mb-30">
@@ -234,11 +202,13 @@
                         <input id="quantity" type="text" class="form-control bg-secondary border-0 text-center" value="1">
                         <div class="input-group-btn">
                             <button id="plus" class="btn btn-primary btn-plus">
+
                                 <i class="fa fa-plus"></i>
                             </button>
                         </div>
                     </div>
                     <button id="addToCard" class="btn btn-primary px-3"><i class="fa fa-shopping-cart mr-1"></i> Add To
+
                         Cart</button>
                 </div>
 
@@ -251,6 +221,7 @@
                 <div class="nav nav-tabs mb-4">
                     <a class="nav-item nav-link text-dark active" data-toggle="tab" href="#tab-pane-1">Description</a>
                     <a class="nav-item nav-link text-dark" data-toggle="tab" href="#tab-pane-3" id="reviewcounts"></a>
+
                 </div>
                 <div class="tab-content">
                     <div class="tab-pane fade show active" id="tab-pane-1">
@@ -264,6 +235,7 @@
                                 <div id="reviews"></div>
                             </div>
                             <div class="col-md-6">
+
                                 <h4 class="mb-4">Để lại đánh giá</h4>
                                 <div class="d-flex my-3">
                                     <div class="product-rating">
@@ -284,6 +256,7 @@
                                         <textarea id="message" cols="30" rows="5" class="form-control"></textarea>
                                     </div>
 
+
                                     <div class="form-group mb-0">
                                         <input type="submit" value="Leave Your Review" class="btn btn-primary px-3">
                                     </div>
@@ -297,6 +270,7 @@
     </div>
 </div>
 <!-- Shop Detail End -->
+
 
 
 <!-- Products Start -->
@@ -527,6 +501,7 @@
 <!-- Template Javascript -->
 <script src="js/main.js"></script>
 <script src="js/detail.js"></script>
+
 
 </body>
 

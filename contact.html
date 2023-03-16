@@ -24,9 +24,10 @@
 
     <!-- Customized Bootstrap Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
+    <script src="js/checkLogin.js"></script>
 </head>
 
-<body>
+<body onload="checkLoginFunc()">
     <!-- Topbar Start -->
     <div class="container-fluid">
         <div class="row align-items-center bg-light py-3 px-xl-5 d-none d-lg-flex">
@@ -50,6 +51,9 @@
             </div>
             <div class="col-lg-4 col-6 text-right">
                 <button type="button" class="btn btn-warning btn-sm rounded">Đăng nhập</button>
+            </div>
+            <div class="collapse" id="collapseExample">
+                <button type="button" class="btn btn-sm rounded" onclick="LogOut()">Log Out</button>
             </div>
         </div>
     </div>

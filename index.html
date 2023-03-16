@@ -44,7 +44,7 @@
       <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
         <div class="product-item bg-light mb-4">
           <div class="product-img position-relative overflow-hidden">
-            <img class="img-fluid w-100" src="http://127.0.0.1:8080/images/product/${product.image}" alt="">
+            <img class="img-fluid w-100" src="http://127.0.0.1:8080/images/product/${product.image}" alt="detail.html?id=${product.id}">
             <div class="product-action">
               <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
               <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
@@ -53,7 +53,7 @@
             </div>
           </div>
           <div class="text-center py-4">
-            <a class="h6 text-decoration-none text-truncate" href="">${product.name}</a>
+            <a class="h6 text-decoration-none text-truncate" href="detail.html?id=${product.id}">${product.name}</a>
             <div class="d-flex align-items-center justify-content-center mt-2">
               <h5>${product.price}</h5><h6 class="text-muted ml-2"><del>Discount: ${product.discount}</del></h6>
             </div>
@@ -564,11 +564,18 @@
     <!-- Footer End -->
 
     <!-- Back to Top -->
-    <a href="#" class="btn btn-primary back-to-top"
-      ><i class="fa fa-angle-double-up"></i
-    ></a>
+      <div>
+        <a href="#" class="btn btn-primary back-to-top"
+          ><i class="fa fa-angle-double-up"></i
+        ></a>
+          <a href="m.me/1975973322618712" class="btn back-to-top " onclick="window.location.href='https://m.me/1975973322618712'" style="position: fixed ;bottom: 17px;right: 70px;z-index: 2;" >
+            <img src="https://static.macupdate.com/products/62269/l/messenger-logo.png?v=1662101359" alt="Messenger Icon" style="width: 50px; height: 50px;">
+          </a>
+      </div>
+<!--      <a href="#"><img src="https://cdn4.iconfinder.com/data/icons/social-media-icons-the-circle-set/48/messenger_circle-512.png" alt="Messenger Logo" style="border-radius: 50%; width: 50px; height: 50px;"></a>-->
 
-    <!-- JavaScript Libraries -->
+
+      <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
     <script src="lib/easing/easing.min.js"></script>
@@ -580,5 +587,8 @@
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
+    <script src="js/jwt-decode.js"></script>
+
+    </div>
   </body>
 </html>

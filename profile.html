@@ -24,12 +24,8 @@
 
     <!-- Customized Bootstrap Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/profile.css">
     <script src="js/checkLogin.js"></script>
-    <style>
-        .readonly {
-            pointer-events: none;
-        }
-    </style>
 </head>
 
 <body onload="checkLoginFunc()">
@@ -80,9 +76,9 @@
                     <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                         <div class="navbar-nav mr-auto py-0">
                             <a href="index.html" class="nav-item nav-link ">Trang chủ</a>
-                            <a href="shop.html" class="nav-item nav-link">Danh mục</a>
+                            <a href="shop.html" class="nav-item nav-link active">Danh mục</a>
                             <a href="detail.html" class="nav-item nav-link">Chi tiết sản phẩm</a>
-                            <a href="cart.html" class="nav-item nav-link active">Giỏ hàng</a>
+                            <a href="cart.html" class="nav-item nav-link">Giỏ hàng</a>
                             <a href="checkout.html" class="nav-item nav-link">Thanh toán</a>                  
                             <a href="contact.html" class="nav-item nav-link">Liên hệ</a>
                         </div>
@@ -109,9 +105,9 @@
         <div class="row px-xl-5">
             <div class="col-12">
                 <nav class="breadcrumb bg-light mb-30">
-                    <a class="breadcrumb-item text-dark" href="#">Home</a>
-                    <a class="breadcrumb-item text-dark" href="#">Shop</a>
-                    <span class="breadcrumb-item active">Shopping Cart</span>
+                    <a class="breadcrumb-item text-dark" href="index.html">Home</a>
+                    <a class="breadcrumb-item text-dark" href="#">User</a>
+                    <span class="breadcrumb-item active">User Profile</span>
                 </nav>
             </div>
         </div>
@@ -119,98 +115,176 @@
     <!-- Breadcrumb End -->
 
 
-    <!-- Cart Start -->
-    <div class="container-fluid">
-        <div class="row px-xl-5">
-            <div class="col-lg-8 table-responsive mb-5">
-                <table class="table table-light table-borderless table-hover text-center mb-0">
-                    <thead class="thead-dark">
-                        <tr>
-                            <th>Products</th>
-                            <th>Price</th>
-                            <th>Quantity</th>
-                            <th>Total</th>
-                            <th>Remove</th>
-                        </tr>
-                    </thead>
-                    <tbody class="align-middle" id="row-table">
-
-                    </tbody>
-                </table>
-            </div>
-            <div class="col-lg-8" id="form-buy" >
-                <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Billing Address</span></h5>
-                <div class="bg-light p-30 mb-5">
-                    <div class="row">
-                        <div class="col-md-6 form-group">
-                            <label>Tên khách hàng</label>
-                            <input class="form-control readonly" id="nameUser" type="text"  placeholder="John" >
-                        </div>
-                        <div class="col-md-6 form-group">
-                            <label>Số điện thoại</label>
-                            <input class="form-control readonly" id="phoneUser" type="text" placeholder="+123 456 789" >
-                        </div>
-
-                        <div class="col-md-12 form-group">
-                            <label>Địa chỉ</label>
-                            <input class="form-control" id="addressUser" type="text" placeholder="31 Trần Duy Hưng, quận Cầu Giấy, Hà Nội">
-                        </div>
-
-                        <div class="col-md-6 form-group">
-                            <label>E-mail</label>
-                            <input class="form-control readonly" id="emailUser" type="text" placeholder="darklord0305@gmail.com">
-                        </div>
-                        <div class="col-md-6 form-group">
-                            <label>Phương thức thanh toán</label>
-                            <select class="custom-select">
-                                <option selected>Thanh toán khi nhận được hàng</option>
-                                <option disabled>Chuyển khoản ngân hàng (Hiện chưa hộ trợ)</option>
-                                <option disabled>Thanh toán momo (Hiện chưa hộ trợ)</option>
-                            </select>
-                        </div>
-                        <div class="col-md-3 form-group">
-                        </div>
-                        <div class="col-md-6 form-group">
-                            <button class="btn btn-block btn-primary font-weight-bold py-3" id="place-order">Place Order</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <!-- Profile start -->
+    <section style="background-color: #eee;">
+        <div class="container py-5">
+          <div class="row">
             <div class="col-lg-4">
-                <form class="mb-30" action="">
-                    <div class="input-group">
-                        <input type="text" class="codeCoupon form-control border-0 p-4" placeholder="Coupon Code">
-                        <div class="input-group-append">
-                            <button class="btn btn-primary " id="apply-code">Apply Coupon</button>
-                        </div>
-                    </div>
-                </form>
-                <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Cart Summary</span></h5>
-                <div class="bg-light p-30 mb-5">
-                    <div class="border-bottom pb-2" id="cart-summary">
-                        <div class="d-flex justify-content-between mb-3">
-                            <h6>Subtotal</h6>
-                            <h6 id="subtotal"></h6>
-                        </div>
-                        <div class="d-flex justify-content-between">
-                            <h6 class="font-weight-medium">Shipping</h6>
-                            <h6 class="font-weight-medium">10</h6>
-                        </div>
-                    </div>
-                    <div class="pt-2">
-                        <div class="d-flex justify-content-between mt-2">
-                            <h5>Total</h5>
-                            <h5 id="total-bill">0</h5>
-                        </div>
-                        <button class="btn btn-block btn-primary font-weight-bold my-3 py-3" id="btnChangePage">Proceed To Checkout</button>
-                    </div>
+              <div class="card mb-4">
+                <div class="card-body text-center">
+                  <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" alt="avatar"
+                    class="rounded-circle img-fluid" style="width: 150px;">
+                  <h5 class="my-3">John Smith</h5>
+                  <p class="text-muted mb-1">Full Stack Developer</p>
+                  <p class="text-muted mb-4">Bay Area, San Francisco, CA</p>
+                  <div class="d-flex justify-content-center mb-2">
+                    <button type="button" class="btn btn-primary">Follow</button>
+                    <button type="button" class="btn btn-outline-primary ms-1">Message</button>
+                  </div>
                 </div>
+              </div>
+              
             </div>
-
+            <div class="col-lg-8">
+              <div class="card mb-4">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <p class="mb-0">Full Name</p>
+                    </div>
+                    <div class="col-sm-9">
+                      <p class="text-muted mb-0">Johnatan Smith</p>
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <p class="mb-0">Email</p>
+                    </div>
+                    <div class="col-sm-9">
+                      <p class="text-muted mb-0">example@example.com</p>
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <p class="mb-0">Phone</p>
+                    </div>
+                    <div class="col-sm-9">
+                      <p class="text-muted mb-0">(097) 234-5678</p>
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <p class="mb-0">Mobile</p>
+                    </div>
+                    <div class="col-sm-9">
+                      <p class="text-muted mb-0">(098) 765-4321</p>
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <p class="mb-0">Address</p>
+                    </div>
+                    <div class="col-sm-9">
+                      <p class="text-muted mb-0">Bay Area, San Francisco, CA</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Order History Start -->
+          <div class="row">
+            <div class="card card-stepper w-100 mx-auto mb-4" style="border-radius: 16px;">
+                <div class="card-header p-4">
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                      <p class="text-muted mb-2"> Order ID <span class="fw-bold text-body">1222528743</span></p>
+                      <p class="text-muted mb-0"> Place On <span class="fw-bold text-body">12,March 2019</span> </p>
+                    </div>
+                    <div>
+                      <h6 class="mb-0"> <a href="#">View Details</a> </h6>
+                    </div>
+                  </div>
+                </div>
+                <div class="card-body p-4">
+                  <div class="d-flex flex-row mb-4 pb-2">
+                    <div class="flex-fill">
+                      <h5 class="bold">Headphones Bose 35 II</h5>
+                      <p class="text-muted"> Qt: 1 item</p>
+                      <h4 class="mb-3"> $ 299 <span class="small text-muted"> via (COD) </span></h4>
+                      <p class="text-muted">Tracking Status on: <span class="text-body">11:30pm, Today</span></p>
+                    </div>
+                    <div>
+                      <img class="align-self-center img-fluid"
+                        src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Products/6.webp" width="250">
+                    </div>
+                  </div>
+                  <ul id="progressbar-1" class="mx-0 mt-0 mb-5 px-0 pt-0 pb-4">
+                    <li class="step0 active" id="step1"><span
+                        style="margin-left: 22px; margin-top: 12px;">PLACED</span></li>
+                    <li class="step0 active text-center" id="step2"><span>SHIPPED</span></li>
+                    <li class="step0 text-muted text-end" id="step3"><span
+                        style="margin-right: 22px;">DELIVERED</span></li>
+                  </ul>
+                </div>
+                <div class="card-footer p-4">
+                  <div class="d-flex justify-content-between">
+                    <h5 class="fw-normal mb-0"><a href="#!">Track</a></h5>
+                    <div class="border-start h-100"></div>
+                    <h5 class="fw-normal mb-0"><a href="#!">Cancel</a></h5>
+                    <div class="border-start h-100"></div>
+                    <h5 class="fw-normal mb-0"><a href="#!">Pre-pay</a></h5>
+                    <div class="border-start h-100"></div>
+                    <h5 class="fw-normal mb-0"><a href="#!" class="text-muted"><i class="fas fa-ellipsis-v"></i></a>
+                    </h5>
+                  </div>
+                </div>
+              </div>
+              <div class="card card-stepper w-100 mx-auto" style="border-radius: 16px;">
+                <div class="card-header p-4">
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                      <p class="text-muted mb-2"> Order ID <span class="fw-bold text-body">1222528743</span></p>
+                      <p class="text-muted mb-0"> Place On <span class="fw-bold text-body">12,March 2019</span> </p>
+                    </div>
+                    <div>
+                      <h6 class="mb-0"> <a href="#">View Details</a> </h6>
+                    </div>
+                  </div>
+                </div>
+                <div class="card-body p-4">
+                  <div class="d-flex flex-row mb-4 pb-2">
+                    <div class="flex-fill">
+                      <h5 class="bold">Headphones Bose 35 II</h5>
+                      <p class="text-muted"> Qt: 1 item</p>
+                      <h4 class="mb-3"> $ 299 <span class="small text-muted"> via (COD) </span></h4>
+                      <p class="text-muted">Tracking Status on: <span class="text-body">11:30pm, Today</span></p>
+                    </div>
+                    <div>
+                      <img class="align-self-center img-fluid"
+                        src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Products/6.webp" width="250">
+                    </div>
+                  </div>
+                  <ul id="progressbar-1" class="mx-0 mt-0 mb-5 px-0 pt-0 pb-4">
+                    <li class="step0 active" id="step1"><span
+                        style="margin-left: 22px; margin-top: 12px;">PLACED</span></li>
+                    <li class="step0 active text-center" id="step2"><span>SHIPPED</span></li>
+                    <li class="step0 text-muted text-end" id="step3"><span
+                        style="margin-right: 22px;">DELIVERED</span></li>
+                  </ul>
+                </div>
+                <div class="card-footer p-4">
+                  <div class="d-flex justify-content-between">
+                    <h5 class="fw-normal mb-0"><a href="#!">Track</a></h5>
+                    <div class="border-start h-100"></div>
+                    <h5 class="fw-normal mb-0"><a href="#!">Cancel</a></h5>
+                    <div class="border-start h-100"></div>
+                    <h5 class="fw-normal mb-0"><a href="#!">Pre-pay</a></h5>
+                    <div class="border-start h-100"></div>
+                    <h5 class="fw-normal mb-0"><a href="#!" class="text-muted"><i class="fas fa-ellipsis-v"></i></a>
+                    </h5>
+                  </div>
+                </div>
+              </div>
+          </div>
         </div>
-    </div>
-    <!-- Cart End -->
+      </section>
 
+    <!-- Profile end -->
 
     <!-- Footer Start -->
     <div class="container-fluid bg-dark text-secondary mt-5 pt-5">
@@ -300,8 +374,7 @@
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
-    <script src="js/cart.js"></script>
-    <script src="js/jwt-decode.js"></script>
+    <script src="js/shop.js"></script>
 </body>
 
 </html>

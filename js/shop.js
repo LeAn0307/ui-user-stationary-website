@@ -49,7 +49,7 @@
             </div>
           </div>
           <div class="text-center py-4">
-            <a class="h6 text-decoration-none text-truncate" href="">${product.name}</a>
+            <a class="h6 text-decoration-none text-truncate" href="detail.html?id=${product.id}">${product.name}</a>
             <div class="d-flex align-items-center justify-content-center mt-2">
               <h5>${product.price}</h5><h6 class="text-muted ml-2"><del>Discount: ${product.discount}</del></h6>
             </div>
@@ -95,7 +95,7 @@
                         </div>
                       </div>
                       <div class="text-center py-4">
-                        <a class="h6 text-decoration-none text-truncate" href="">${product.name}</a>
+                        <a class="h6 text-decoration-none text-truncate" href="detail.html?id=${product.id}">${product.name}</a>
                         <div class="d-flex align-items-center justify-content-center mt-2">
                           <h5>${product.price}</h5><h6 class="text-muted ml-2"><del>Discount: ${product.discount}</del></h6>
                         </div>

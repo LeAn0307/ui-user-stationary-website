@@ -24,9 +24,10 @@
 
     <!-- Customized Bootstrap Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
+    <script src="js/checkLogin.js"></script>
 </head>
 
-<body>
+<body onload="checkLoginFunc()">
     <!-- Topbar Start -->
     <div class="container-fluid">
         <div class="row align-items-center bg-light py-3 px-xl-5 d-none d-lg-flex">
@@ -49,7 +50,10 @@
                 </form>
             </div>
             <div class="col-lg-4 col-6 text-right">
-                <button type="button" class="btn btn-warning btn-sm rounded">Đăng nhập</button>
+                <button type="button" class="btn btn-warning btn-sm rounded" onclick="Login()">Đăng nhập</button>
+            </div>
+            <div class="collapse" id="collapseExample">
+                <button type="button" class="btn btn-sm rounded" onclick="LogOut()">Log Out</button>
             </div>
         </div>
     </div>
@@ -235,7 +239,7 @@
             <!-- Shop Product Start -->
             <div class="col-lg-9 col-md-8">
                 <div class="row pb-3 " id="product-list">
-                    <div class="col-lg-4 col-md-6 col-sm-6 pb-1">
+                    <!-- <div class="col-lg-4 col-md-6 col-sm-6 pb-1">
                         <div class="product-item bg-light mb-4">
                             <div class="product-img position-relative overflow-hidden">
                                 <img class="img-fluid w-100" src="img/product-2.jpg" alt="">
@@ -461,7 +465,7 @@
                             <li class="page-item"><a class="page-link" href="">Next</a></li>
                           </ul>
                         </nav>
-                    </div>
+                    </div> -->
                 </div>
             </div>
             <!-- Shop Product End -->
